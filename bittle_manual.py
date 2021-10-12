@@ -1,5 +1,6 @@
 import pybullet as p
 import pybullet_data
+import numpy as np
 import time
 
 class BittleManual():
@@ -17,8 +18,8 @@ class BittleManual():
 
         #Load bittle into environment
         self.startPos = [0,0,.6]
-        self.startOrientation = p.getQuaternionFromEuler([0,0,0])
-        self.bittle_id = p.loadURDF("models/bittle.urdf",self.startPos, self.startOrientation)
+        self.startOrientation = p.getQuaternionFromEuler([0,0,-1.5708]) #Face x direction by rotating about z
+        self.bittle_id = p.loadURDF("models/bittle_modified.urdf",self.startPos, self.startOrientation)
 
         #Get usable joints and create sliders
         self.joint_ids, self.slider_ids = self.getJoints()
@@ -30,7 +31,6 @@ class BittleManual():
         self.initial_angles = [.2,.364,-.2,.364,.2,-.364,-.2,-.364]
         #self.initial_angles = [.2,.364,-.364,.364,.2,-.364,-.364,-.364]
         self.current_angles = [0,0,0,0,0,0,0,0]
-
 
     def getJoints(self):
         #Collect the joints that can be manipulated for walking
@@ -113,6 +113,7 @@ class BittleManual():
         p.configureDebugVisualizer(p.COV_ENABLE_SINGLE_STEP_RENDERING)
         #Check values of each slider
         for slider in self.slider_ids:
+            #state_robot_pos, state_robot_orien = p.getBasePositionAndOrientation(self.bittle_id)
             user_input_angle = p.readUserDebugParameter(slider)
             #Update bittle with new value for joint given by user
             p.setJointMotorControl2(self.bittle_id, self.joint_ids[count], p.POSITION_CONTROL, user_input_angle)
@@ -126,6 +127,7 @@ if __name__ == "__main__":
     while True:
         bittle.user_input()
         #bittle.my_policy()
+
 
 
 

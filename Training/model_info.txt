@@ -1,0 +1,195 @@
+PPO_Model_Bittle29
+	episodes:4,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function:  (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.75)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: Removed reward in x direction. Increased Weight
+
+
+PPO_Model_Bittle28
+	episodes:4,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function:  (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.75)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: Removed reward in x direction. Overtrained. Bad outcome
+
+PPO_Model_Bittle27
+	episodes:1,500,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: 4 shoulders allowed to move
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.75)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: pretty okay. Maybe train more
+
+PPO_Model_Bittle26
+	episodes:4,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: 4 shoulders allowed to move
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: -.95 wrong since starts at a lower position
+
+SAC_Model_Bittle25
+	episodes:500,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: 4 hours training with little improvement and large negative rewards, haulted
+
+DDPG_Model_Bittle24
+	episodes: 1,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: front flip
+
+A2C_Model_Bittle23
+	episodes: 1,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: good motion with the legs, just not balanced and wild
+
+
+PP0_Model_Bittle22
+	episodes: 4,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: good motion with the legs, just not balanced and wild
+
+PP0_Model_Bittle21 (BEST MODEL)
+	episodes: 3,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: .1 * (current_x_position - lastPosition) + (.1 * state_robot_lin_vel[0]) - (.3 * abs(current_z_position-.95)) - (.3 * abs(state_robot_lin_vel[2])) - (.3 * abs(state_robot_orien[0])) - (.3 * abs(state_robot_orien[1]))
+	weight: 5 kilograms 
+	friction: 2.4
+	jointAngles = action 
+	Notes: good does not look like walking because very small steps and very quick. Left leg up
+
+PP0_Model_Bittle20
+	episodes: 2,000,000 + 2,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+	weight: 5 kilograms 
+	friction: 2.4
+	action scale: *.26 (instead of + rand(-.1,.1)) 
+	Notes: Dragging using two front feet then front flip tumble
+
+PP0_Model_Bittle19
+	episodes: 2,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: .1* (current_x_position - lastPosition) + .1* state_robot_lin_vel[0]) - .2* abs(current_z_position-.95)) - .2* abs(state_robot_lin_vel[2])) - .2* abs(state_robot_orien[0]))
+	weight: 20 kilograms 
+	friction: 2.4
+	Notes: Actually not too horrible. Kinda dragged itself with the two front feet. Doesnt look too good. 
+
+PP0_Model_Bittle18
+	episodes: 4,000,000
+	observation space: 20 (1 history steps) (euler orientation no w)
+	reward function: .1* (current_x_position - lastPosition) + (.1* state_robot_lin_vel[0]) - (.2 * abs(current_z_position-.95)) - (.2 * abs(state_robot_lin_vel[2]))
+	weight: 20 kilograms 
+	friction: 2.4
+	Notes: Jump forward flip, slightly to the left
+
+SAC_Model_Bittle17
+	episodes: 4,000,000
+	observation space: 92 (10 history steps) (euler orientation no w)
+	reward function: .1* (current_x_position - lastPosition) - .1* abs(current_z_position-.95)) - .1* abs(state_robot_lin_vel[2])) - .1* abs(state_robot_orien[0])) - .1* abs(state_robot_orien[1]))
+	weight: 270 grams total
+	friction: 2.4
+	Notes: ran for 24 hours. Only completed 2.5 million episodes. Leveled out at a negative reward. Stuck at a local min. 
+
+PP0_Model_Bittle16
+	episodes: 5,000,000
+	observation space: 92 (10 history steps) (euler orientation no w)
+	reward function: .1* (current_x_position - lastPosition) - .1* abs(current_z_position-.95)) - .1* abs(state_robot_lin_vel[2])) - .1* abs(state_robot_orien[0])) - .1* abs(state_robot_orien[1]))
+	weight: 270 grams total
+	friction: 2.4
+	Notes: walking motion just once. Dont not keep going
+
+PP0_Model_Bittle15
+	episodes: 3,000,000
+	observation space: 92 (10 history steps) (euler orientation no w)
+	reward function: .1* (current_x_position - .1* abs(current_z_position-.95)) - .1* abs(state_robot_lin_vel[2])) - .1* abs(state_robot_orien[0])) - .1* abs(state_robot_orien[1]))
+	weight: 270 grams total
+	friction: 2.4
+	Notes: stays on the ground and extends its legs. Stops moving because absolute position
+
+PP0_Model_Bittle14
+	episodes: 500,000
+	observation space: 92 (10 history steps) (euler orientation no w)
+	reward function: .1* current_x_position) - .1* abs(current_z_position-.95))
+	weight: 270 grams total
+	friction: 2.4
+	Notes: jump in the x direction by kicking a leg
+
+PP0_Model_Bittle11
+	episodes: 500,000
+	observation space: 92 (10 history steps) (euler orientation no w)
+	reward function: 4 * (current_x_position - lastPosition) +  (.05*state_robot_lin_vel[0])  - (.05 * abs(current_z_position-.95)) - (.05 * abs(state_robot_orien[0])) - (.05 * abs(state_robot_orien[1]))
+	weight: 30 kilograms 
+	friction: 2.4
+
+PP0_Model_Bittle10
+	episodes: 800,000
+	observation space: 53 (5 history steps)
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/1000  - abs(current_z_position-.95)/10 
+	weight: 20 kilograms 
+	friction: 2.4
+	Notes: Falls over to the right
+
+PP0_Model_Bittle9
+	episodes: 500,000
+	observation space: 21, Position (x,y,z), Orientation (x,y,z,w), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz), 8 joint angles
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/1000  - abs(current_z_position-.95)/10 
+	weight: 20 kilograms 
+	friction: 2.4
+	Notes: Walking but very sloppy, most of the time in the right direction without flying
+
+PP0_Model_Bittle8
+	episodes: 1,000,000
+	observation space: 21, Position (x,y,z), Orientation (x,y,z,w), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz), 8 joint angles
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/100 - abs(current_z_position-.95)/100
+	weight: 30 kilograms 
+
+PPO_Model_Bittle6
+	episodes: 400,000
+	observation space: 21, Position (x,y,z), Orientation (x,y,z,w), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz), 8 joint angles
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/100 - abs(current_z_position-.95)/100
+	weight: 270 grams total 
+
+SAC_Model_Bittle6
+	SAC_Model_Bittle5
+	total 500,000 episodes
+	21 observation space: Position (x,y,z), Orientation (x,y,z,w), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz), 8 joint angles
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/100 - abs(current_z_position-.95)/100
+	270 grams total weight
+	Notes: Learning to jump in the wrong direction
+
+PPO_Model_Bittle_4_Sept29
+	total 4,000,000 episodes
+	14 observation space: Position (x,y,z) Linear Velocity (x,y,z) and the 8 joint anglee
+	reward function: (current_x_position - lastPosition) + state_robot_lin_vel[0]/100 - abs(current_z_position-.95)/100
+	270 grams total weight
+
+
+	
