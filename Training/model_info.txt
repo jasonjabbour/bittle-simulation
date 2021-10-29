@@ -1,3 +1,501 @@
+---------- TO BE DELETED ----------
+
+PPO_Model_Bittle82
+	episodes: 6,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: Walks! Sometimes has a bit of roll and uses only 3 legs. Same as 77 but with saved stats
+
+PPO_Model_Bittle81
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: Walks! Sometimes has a bit of roll and uses only 3 legs. Same as 77 but with saved stats
+
+PPO_Model_Bittle77
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: Forgot to save stats
+
+PPO_Model_Bittle76 
+	episodes: 5,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 11 or 12
+	Notes: not trained enough
+
+
+PPO_Model_Bittle74 (Best Model)
+	episodes: 6,500,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6 (or 7)
+	Notes: 
+
+PPO_Model_Bittle71 (Overtrained)
+	episodes: 12,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code penalize falling
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: reached almost perfect reward around 7 million eps
+
+PPO_Model_Bittle69 (Pretty Good)
+	episodes: 12,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: works, falls over at the end
+
+PPO_Model_Bittle66 (Best so far)
+	episodes: 10,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: see code
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: works!!
+
+
+PPO_Model_Bittle63 (Best so far)
+	episodes: 2,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.1 - .1
+	joints: all 8
+	reward function: see code
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: YES, better, should be trained more. Uses lower legs sometimes only
+
+PPO_Model_Bittle62 (Bad but okay)
+	episodes: 8,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: see code
+	weight: 4 kilogram
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: good movement at first, then trips and flips
+
+PPO_Model_Bittle61 (Bad)
+	episodes: 8,000,000 + 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: see code
+	weight: 1 kilogram
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: jump forward, get a little reward and fall 
+
+PPO_Model_Bittle60 (Bad)
+	episodes: 8,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: vel>0 vel>1 and upright2<.1, .1 else 0 or -.1
+	weight: 1 kilogram
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: jump forward, get a little reward and fall 
+
+PPO_Model_Bittle59 (Bad)
+	episodes: 8,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.15 - .15
+	joints: all 8
+	reward function: 
+	weight: 1 kilogram
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Notes: no solution found, will jump forward and then fall 
+
+PPO_Model_Bittle58 (Tricky Tricky)
+	episodes: 8,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: if .1 else 0  else -.1 No x direction
+	weight: 1 kilogram
+	friction: 2.4
+	jointAngles += action
+	isFallen: False
+	steps: 1000
+	Notes: tap tap tap forward. 
+
+
+PPO_Model_Bittle57 (Worse)
+	episodes: 5,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: if .1 elif .2 else 0  No x direction
+	weight: 270 grams
+	friction: 2.4
+	jointAngles += action
+	isFallen: False
+	steps: 1000
+	Notes: not good
+
+
+PPO_Model_Bittle56 (BETTER)
+	episodes: 5,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.1 - .1
+	joints: all 8
+	reward function: if .1 elif .2 else 0  
+	weight: 270 grams
+	friction: 2.4
+	jointAngles += action
+	isFallen: False
+	steps: 500
+	Notes: doing well!
+
+
+PPO_Model_Bittle55 (BETTER)
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.2 - .2
+	joints: all 8
+	reward function: if .1 elif .2 else 0  
+	weight: 270 grams
+	friction: 2.4
+	jointAngles += action
+	isFallen: False
+	steps: 500
+	Notes: doing well!
+
+PPO_Model_Bittle53 (GOOD)
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: if .1 elif .2 else 0  
+	weight: 40 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 500
+	Notes: doing well!
+
+PPO_Model_Bittle49 
+	episodes: 5,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: if,else distance and double if orien and not fallen  
+	weight: 20 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 500
+	stepsimulation: extra 5
+	Notes: okay work off this doing well sometimes should be trained more
+
+
+PPO_Model_Bittle46 (Best model)
+	episodes: 20,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: velocity x direction - orien[0]  
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	terrain: even (but works on both)
+	maxJointVelocity: 5 (new approach)
+	Notes: try training for millions of episodes
+
+PPO_Model_Bittle45
+	episodes: 30,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: velocity x direction 
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	terrain: even
+	maxJointVelocity: 5 (new approach)
+	Notes: the more training the worse
+
+
+PPO_Model_Bittle44
+	episodes: 1,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: velocity x direction 
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	terrain: uneven
+	maxJointVelocity: 5 (new approach)
+	Notes: pretty good, should keep training to maybe 4,000,000
+
+PPO_Model_Bittle43
+	episodes: 3,000,000 + 1,500,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: velocity x direction - orientation pitch[0]
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles+= action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 10 (new approach)
+	Notes: Maybe try this again 
+
+PPO_Model_Bittle42
+	episodes: 1,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: .10 .7 .5 .03 .001 
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 10 (new approach)
+	Notes: train more
+
+PPO_Model_Bittle41
+	episodes: 50,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: 10 7 5 3 1 
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 5 (new approach)
+	Notes: works but not learning
+
+PPO_Model_Bittle40
+	episodes: 500,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	joints: all 8
+	reward function: reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_orien[0]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 5(new approach)
+	Notes: Freeze up. Gettings worse as more training. Really good at the beginning
+
+PPO_Model_Bittle39
+	episodes: 100,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: True (-1 to 1)
+	joints: all 8
+	reward function: reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_orien[0]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 10
+	Notes: Okay sometimes but gettting worse as more training
+
+PPO_Model_Bittle38
+	episodes: 1,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False(-50 to 50)
+	joints: all 8
+	reward function: reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_orien[0]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 5
+	Notes: Front flip, decay reward
+
+PPO_Model_Bittle37
+	episodes: 1,000,000 + 2,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False(-50 to 50)
+	joints: all 8
+	reward function: reward = (.1*state_robot_lin_vel[0])
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	maxJointVelocity: 5
+	Notes: Front flip
+
+
+PPO_Model_Bittle36
+	episodes: 4,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: True (-1 to 1)
+	joints: all 8
+	reward function: reward = (.4*state_robot_lin_vel[0]) - (.1*abs(state_robot_lin_vel[2])) - (.1*abs(state_robot_orien[0])) - (1*abs(state_robot_orien[1]))
+	weight: 10 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 1000
+	Notes: very bad. one jump forward. legs move once
+
+PPO_Model_Bittle35
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: True (-1 to 1)
+	joints: all 8
+	reward function: reward = (.2*state_robot_lin_vel[0]) - (.1*abs(state_robot_lin_vel[2])) - (.1*abs(state_robot_orien[0])) - (1*abs(state_robot_orien[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 750
+	Notes: haulted because policy was not increasing
+
+PPO_Model_Bittle34
+	episodes: 3,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function: reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_lin_vel[2])) - (.1*abs(state_robot_orien[0])) - (1*abs(state_robot_orien[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 750
+	Notes: policy burned up
+
+PPO_Model_Bittle33
+	episodes: 2,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function: (.1*state_robot_lin_vel[0]) 
+	weight: 270 grams total
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	steps: 750
+	Notes: Launch forward, large jumps. Try with limits on velocity
+
+PPO_Model_Bittle32
+	episodes: 2,000,000 + 2,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function: reward = (1*state_robot_lin_vel[0]) - (1*abs(state_robot_lin_vel[2])) - (1*abs(state_robot_orien[0]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	Notes: Try with roll and other penalties
+
+PPO_Model_Bittle31
+	episodes: 500,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function: reward = (1*state_robot_lin_vel[0]) - (1*abs(state_robot_orien[0])) #x vel and pitch
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	isFallen: False
+	Notes: Running in right direction but will stumble
+
+PPO_Model_Bittle30
+	episodes: 4,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	joints: all 8
+	reward function:  (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-.75)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1])) - (REWARD_WEIGHT_3 * abs(state_robot_pos[1]))
+	weight: 5 kilograms
+	friction: 2.4
+	jointAngles = action
+	Notes: Removed reward in x direction. Increased Weight of x velocity from .1 to .2. Walking in correct direction but extreme pitch. 
+
 PPO_Model_Bittle29
 	episodes:4,000,000
 	observation space: 12 (1 history steps) (euler orientation no w)
@@ -6,7 +504,7 @@ PPO_Model_Bittle29
 	weight: 5 kilograms
 	friction: 2.4
 	jointAngles = action
-	Notes: Removed reward in x direction. Increased Weight
+	Notes: Removed reward in x direction. Increased Weight of x velocity from .1 to .3. Walking in correct direction but extreme pitch
 
 
 PPO_Model_Bittle28
@@ -192,4 +690,163 @@ PPO_Model_Bittle_4_Sept29
 	270 grams total weight
 
 
+------------------------------------------------------------ Reward Functions -------------------------------
+
+        # Reward is the advance in x-direction
+        #Change in the x direction + x velocity - z position
+        #reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2*state_robot_lin_vel[0])  - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+        #PPO16:
+        #reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) - (REWARD_WEIGHT_2 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+        #reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-self.start_height)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+        #reward = (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-self.start_height)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+        #reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_lin_vel[2])) - (.1*abs(state_robot_orien[0])) - (.1*abs(state_robot_orien[1]))
+
+        #reward = (1*state_robot_lin_vel[0])  - (1*abs(state_robot_orien[0]))
+
+        #reward = (.1*state_robot_lin_vel[0]) - (.1*abs(state_robot_orien[0]))
+        # if current_x_position > 20:
+        #     reward = 20
+        # elif current_x_position > 15:
+        #     reward = 5
+        # elif current_x_position > 10:
+        #     reward = 1.5
+        # elif current_x_position > 7:
+        #     reward = .5
+        # elif current_x_position > 5:
+        #     reward = .1
+        # elif current_x_position > 3:
+        #     reward = .003
+        # elif current_x_position > 1:
+        #     reward = .00001
+        # else:
+        #     reward = 0
+        #
+        # if self.is_upright():
+        #     reward*=2
+        #
+        # if self.is_straightforward():
+        #     reward*=2
+        #
+        # if self.is_upright() and self.is_straightforward():
+        #     reward*=2
+        #
+        # if self.is_fallen() or (current_z_position > 1.1):
+        #     reward = 0
+
+        #55
+        # if current_x_position > .5 and state_robot_lin_vel[0] > 0:
+        #     reward = .1
+        #     if self.is_upright() and self.is_straightforward() and not (self.is_fallen() and (current_z_position > 1.1)):
+        #         reward = .2
+        # else:
+        #     reward = 0
+
+        #58
+        # reward = 0
+        # if state_robot_lin_vel[0] > 0:
+        #     if state_robot_lin_vel[0] > 1.5 and current_x_position > 1.5:
+        #         if self.is_upright():
+        #             if not (self.is_fallen()):
+        #                 if not (current_z_position > 1.4):
+        #                     reward = .01
+        #                     # if self.is_straightforward():
+        #                     #     #if moving in the right direction with in the right way
+        #                     #     reward = .01
+        #                     # else:
+        #                     #     reward = .005
+        # else:
+        #     #if not even moving in the right direction
+        #     reward = -.01
+
+        #60 <.1 upright
+        # reward = 0
+        # if state_robot_lin_vel[0] > 0:
+        #     if state_robot_lin_vel[0] > 1 and self.is_upright2():
+        #         reward = .01
+        # else:
+        #     #if not even moving in the right direction
+        #     reward = -.01
+        #
+        # if self.is_fallen():
+        #     reward = -.01
+
+        #61 upright2 < .2, action -.2 to .2
+        # reward = 0
+        # if state_robot_lin_vel[0] > 0:
+        #     if state_robot_lin_vel[0] > 1:
+        #         if self.is_upright2():
+        #             reward = .001
+        #     elif self.is_upright2():
+        #         reward = .0001
+        #     else:
+        #         reward = .00001
+        # else:
+        #     #if not even moving in the right direction
+        #     reward = -.001
+        #
+        # if self.is_fallen():
+        #     reward = 0
+
+
+
+        #62, 4kg bittle, upright2: .2
+        # reward = 0
+        # if state_robot_lin_vel[0] > 0:
+        #     reward = .01
+        #     if state_robot_lin_vel[0] > 1.5:
+        #         reward = .1
+        #     if self.is_upright2() and state_robot_lin_vel[0] > 1.5:
+        #         reward = .3
+        # else:
+        #     #if not even moving in the right direction
+        #     reward = -.1
+        #
+        # if self.is_fallen():
+        #     reward = -.2
+
+        #63
+        # if state_robot_lin_vel[0] > 0.5 and self.is_upright():
+        #     reward = .1
+        # else:
+        #     reward = 0
+
+        #64
+        # if state_robot_lin_vel[0] > 1 and self.is_upright2():
+        #     reward = .1
+        # else:
+        #     reward = 0
+
+
+
+       # if (state_robot_lin_vel[0] > 1) and self.is_upright() and (current_z_position > .6):
+        #         reward = .1
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+        #
+        # print(reward)
+
+        # if (state_robot_lin_vel[0] > 1) and self.is_upright2() and (current_z_position > .7):
+        #     reward = .1
+        # else:
+        #     reward = 0
+
 	
+
+# max = [0]*20
+# min = [0]*20
+
+# for i in range(len(obs)):
+#     if obs[i] > max[i]:
+#         max[i] = obs[i]
+#     elif obs[i] < min[i]:
+#         min[i] = obs[i]
+
+# lables = ['Position x','Position y','Position z','Orien x','Orien y','Orien z','Lin Vel x','Lin Vel y','Lin Vel z','Ang Vel x','Ang Vel y','Ang Vel z','1','2','3','4','5','6','7','8']
+#
+# for i in range(len(max)):
+#     print(lables[i],'Max :',max[i])
+#     print(lables[i],'Min :',min[i])
+#     print('')

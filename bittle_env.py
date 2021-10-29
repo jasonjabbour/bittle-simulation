@@ -8,14 +8,15 @@ import random
 #Import PyBullet
 import pybullet as p
 import pybullet_data
+import time
 
 BOUND_ANGLE = 57 #(1 rad)
 REWARD_FACTOR = 1000
 REWARD_WEIGHT_1 = .1
 REWARD_WEIGHT_2 = .1
 REWARD_WEIGHT_3 = .3
-MAX_EPISODE_LEN = 500  # Number of steps for one training episode
-MAX_CHANGE = 15
+MAX_EPISODE_LEN = 1000  # Number of steps for one training episode
+MAX_CHANGE = 20
 NUM_JOINTS = 8
 
 class BittleEnv(Env):
@@ -35,7 +36,7 @@ class BittleEnv(Env):
         self.history_joint_queue = np.zeros([self.history_steps_saved*NUM_JOINTS])
 
         #Action Space: 8 joint Angles, Min Angle: -1 rad, Max Angle: 1 rad
-        self.action_space = Box(low=-1,high=1,shape=(NUM_JOINTS,))
+        self.action_space = Box(low=-.05,high=.05,shape=(NUM_JOINTS,))
         # The observation space are the torso roll, pitch and the angular velocities and a history of the last 30 joint angles (30*8 = 240 + 6(xyzw v1 av2)  246)
         #Position (x,y,z), Orientation (x,y,z), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz) and the 8 joint angles*10 history = 92
         self.observation_space = Box(low=-50, high=50,shape=(12+NUM_JOINTS*self.history_steps_saved,))
@@ -55,8 +56,14 @@ class BittleEnv(Env):
 
         # Apply new joint angle to the joints.
         change = np.deg2rad(MAX_CHANGE)
-        #jointAngles += action * change #11 degrees #+ random.uniform(-.1,.1) #add noise
-        jointAngles = action
+        #jointAngles += (action * change) #11 degrees #+ random.uniform(-.1,.1) #add noise
+        #jointAngles = action
+        jointAngles+= action
+
+        # for i in range(len(action)):
+        #     action[i] = np.clip(action[i],-change, change)
+        # jointAngles+=action
+
 
         #Clip angles that exceed boundaries of +/-1 rad for each joint
         for i in range(len(jointAngles)):
@@ -64,7 +71,14 @@ class BittleEnv(Env):
 
         # Set new joint angles
         p.setJointMotorControlArray(self.bittle_id, self.joint_ids, p.POSITION_CONTROL, jointAngles)
+        #remove
+        # for i in range(len(self.joint_ids)):
+        #     p.setJointMotorControl2(self.bittle_id, self.joint_ids[i], p.POSITION_CONTROL, targetPosition=jointAngles[i],force=20)
         p.stepSimulation()
+
+        # for i in range(5):
+        #     p.configureDebugVisualizer(p.COV_ENABLE_SINGLE_STEP_RENDERING)
+        #     p.stepSimulation()
 
         # Read robot state
         # Position and Orientation: [x,y,z] positions and [x,y,z] orientations
@@ -84,21 +98,55 @@ class BittleEnv(Env):
         state_robot_ang_vel = np.asarray(state_robot_ang_vel).reshape(1,-1)[0]
 
         self.state_robot = np.concatenate((state_robot_pos,state_robot_orien,state_robot_lin_vel,state_robot_ang_vel))
+        #Normalize observations from -1 to 1
+        #self.state_robot = self.normalize_obs(self.state_robot)
 
-        # Reward is the advance in x-direction
-        #Change in the x direction + x velocity - z position
-        #reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2*state_robot_lin_vel[0])  - (REWARD_WEIGHT_3 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
-        #PPO16:
-        #reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) - (REWARD_WEIGHT_2 * abs(current_z_position-.95)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
-        reward = REWARD_WEIGHT_1 * (current_x_position - lastPosition) + (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-self.start_height)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
-        #reward = (REWARD_WEIGHT_2 * state_robot_lin_vel[0]) - (REWARD_WEIGHT_3 * abs(current_z_position-self.start_height)) - (REWARD_WEIGHT_3 * abs(state_robot_lin_vel[2])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[0])) - (REWARD_WEIGHT_3 * abs(state_robot_orien[1]))
+
+        #66 works and 69
+        # if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
+        #     reward = .1
+        # else:
+        #     reward = 0
+
+        #74 works
+        # if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
+        #         reward = .1
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+
+        #76
+        # if (state_robot_lin_vel[0] > .75) and self.is_upright() and (current_z_position > .6):
+        #         reward = .1
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+
+
+        #77 friction 1.4
+        if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
+            reward = .1
+            if (state_robot_lin_vel[0] > 1.5):
+                reward = .2
+        else:
+            reward = 0
+
+        if self.is_fallen():
+            reward = -.1
+
+        #print(reward)
+        #print(state_robot_lin_vel[0])
+
 
         done = False
 
         # Stop criteria of current learning episode: Number of steps or robot fell
         self.step_counter += 1
-        if (self.step_counter > MAX_EPISODE_LEN) or self.is_fallen():
-            reward = 0
+        if (self.step_counter > MAX_EPISODE_LEN):
             done = True
 
         #Update history queue
@@ -128,6 +176,7 @@ class BittleEnv(Env):
 
         #Load plane into environment
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        #self.plane_id = p.loadURDF("models/terrain.urdf")
         self.plane_id = p.loadURDF("plane.urdf")
         p.changeDynamics(self.plane_id, -1, lateralFriction = 2.4)
 
@@ -148,6 +197,8 @@ class BittleEnv(Env):
         for i in range(len(self.joint_ids)):
             #each joint, reset to its original angle using the joint id
             p.resetJointState(self.bittle_id,self.joint_ids[i], jointAngles[i])
+            #limit joint velocity
+            #p.setJointMotorControl2(self.bittle_id,self.joint_ids[i], controlMode=p.POSITION_CONTROL, maxVelocity=10)
 
         #Reset queue to initial joint angles
         if NUM_JOINTS == 4:
@@ -173,6 +224,8 @@ class BittleEnv(Env):
         state_robot_ang_vel = np.asarray(state_robot_ang_vel).reshape(1,-1)[0]
 
         self.state_robot = np.concatenate((state_robot_pos,state_robot_orien,state_robot_lin_vel,state_robot_ang_vel))
+        #Normalize from -1 to 1
+        #self.state_robot = self.normalize_obs(self.state_robot)
 
         #Observation: orientation (x,y,z,w) and linear velocity, and the 8 joint angles = 14
         self.observation = np.concatenate((self.state_robot, self.history_joint_queue))
@@ -203,8 +256,29 @@ class BittleEnv(Env):
         '''Check if robot is fallen. True, when pitch or roll is more than 3 rad.'''
         position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
         orientation = p.getEulerFromQuaternion(orientation)
-        is_fallen = np.fabs(orientation[0]) > 3 or np.fabs(orientation[1]) > 3
+        is_fallen = np.fabs(orientation[0]) > 2.5 or np.fabs(orientation[1]) > 2.5
         return is_fallen
+
+    def is_upright(self):
+        '''Return true if pitch and roll are not extreme'''
+        position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
+        orientation = p.getEulerFromQuaternion(orientation)
+        is_upright = abs(orientation[0]) < .3 and abs(orientation[1]) < .3
+        return is_upright
+
+    def is_upright2(self):
+        '''Return true if pitch and roll are not extreme'''
+        position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
+        orientation = p.getEulerFromQuaternion(orientation)
+        is_upright = abs(orientation[0]) < .2 and abs(orientation[1]) < .2
+        return is_upright
+
+    def is_straightforward(self):
+        '''Return true if orientation facing the x direction '''
+        position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
+        orientation = p.getEulerFromQuaternion(orientation)
+        is_straightforward = orientation[2] < -1.24 and orientation[2] > -1.9
+        return is_straightforward
 
     def update_queue(self,jointAngles):
         '''Remove first 8 joints and add 8 new joints to bottom'''
@@ -216,3 +290,32 @@ class BittleEnv(Env):
     def reset_queue(self,jointAngle):
         '''Since no history at reset, fill queue with start angle position'''
         self.history_joint_queue = np.tile(jointAngle,self.history_steps_saved)
+
+    def normalize_obs(self,obs_states):
+        '''Return array of normalized observation states
+        Normalizing based on values generated from 50,000 free range trail
+        '''
+        #Position X, Y, Z
+        pos_max = [40]*3
+        pos_min = [-40]*3
+        #Orientation X, Y, Z
+        orien_max = [6.3]*3
+        orien_min = [-6.3]*3
+        #Linear Velocity X, Y, Z
+        lin_vel_max = [40]*3
+        lin_vel_min = [-40]*3
+        #Angular Velocity X, Y, Z
+        ang_vel_max = [40]*3
+        ang_vel_min = [-40]*3
+        #All together
+        max = pos_max + orien_max + lin_vel_max + ang_vel_max
+        min = pos_min + orien_min + lin_vel_min + ang_vel_min
+
+        normalized_observations = []
+        #Normalize between -1 and 1
+        for i in range(len(obs_states)):
+            norm = ((2*(obs_states[i]-min[i]))/(max[i]-min[i])) - 1
+            normalized_observations.append(norm)
+
+        return normalized_observations
+

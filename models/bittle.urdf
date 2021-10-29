@@ -5,7 +5,8 @@
     <link name="base-frame-link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="0.108"/>
+<!--        <mass value="0.108"/>-->
+        <mass value="4"/>
         <inertia ixx="0.01562" ixy="0" ixz="-2e-05" iyy="0.00613" iyz="0" izz="0.02107"/>
       </inertial>
       <visual name="base_frame">
