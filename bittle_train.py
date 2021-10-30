@@ -118,5 +118,5 @@ if __name__ == '__main__':
     #Would you like to view training?
     GUI = False
     #Train Model, provide name for new model and name of previous model if load is needed
-    train(30000, 'PPO_Model_Bittle83', load_previous=True, model_load='PPO_Model_Bittle81', vec_norm=vec_norm, GUI=GUI)
+    train(5000000, 'PPO_Model_Bittle83', load_previous=False, model_load='', vec_norm=vec_norm, GUI=GUI)
     print(f'Training Completed! {datetime.now()}')

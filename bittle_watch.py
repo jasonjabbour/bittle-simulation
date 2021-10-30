@@ -25,7 +25,7 @@ def loadEnv(model_name, vec_norm=False):
         #  do not update stats at test time
         env.training = False
         # reward normalization is not needed at test time
-        env.norm_reward = False
+        #env.norm_reward = False
 
     #Get path to model
     model_path = os.path.join('Training','Saved_Models',model_name)

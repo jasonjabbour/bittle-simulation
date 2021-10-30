@@ -64,7 +64,6 @@ class BittleEnv(Env):
         #     action[i] = np.clip(action[i],-change, change)
         # jointAngles+=action
 
-
         #Clip angles that exceed boundaries of +/-1 rad for each joint
         for i in range(len(jointAngles)):
             jointAngles[i] = np.clip(jointAngles[i], -self.bound_angle, self.bound_angle)
@@ -101,33 +100,7 @@ class BittleEnv(Env):
         #Normalize observations from -1 to 1
         #self.state_robot = self.normalize_obs(self.state_robot)
 
-
-        #66 works and 69
-        # if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
-        #     reward = .1
-        # else:
-        #     reward = 0
-
-        #74 works
-        # if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
-        #         reward = .1
-        # else:
-        #     reward = 0
-        #
-        # if self.is_fallen():
-        #     reward = -.1
-
-        #76
-        # if (state_robot_lin_vel[0] > .75) and self.is_upright() and (current_z_position > .6):
-        #         reward = .1
-        # else:
-        #     reward = 0
-        #
-        # if self.is_fallen():
-        #     reward = -.1
-
-
-        #77 friction 1.4
+        #works for models 81 and 82
         if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
             reward = .1
             if (state_robot_lin_vel[0] > 1.5):
@@ -137,10 +110,6 @@ class BittleEnv(Env):
 
         if self.is_fallen():
             reward = -.1
-
-        #print(reward)
-        #print(state_robot_lin_vel[0])
-
 
         done = False
 
@@ -271,6 +240,13 @@ class BittleEnv(Env):
         position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
         orientation = p.getEulerFromQuaternion(orientation)
         is_upright = abs(orientation[0]) < .2 and abs(orientation[1]) < .2
+        return is_upright
+
+    def is_upright3(self):
+        '''Return true if pitch and roll are not extreme'''
+        position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
+        orientation = p.getEulerFromQuaternion(orientation)
+        is_upright = abs(orientation[0]) < .15 and abs(orientation[1]) < .15
         return is_upright
 
     def is_straightforward(self):
