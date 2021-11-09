@@ -39,7 +39,11 @@ class BittleEnv(Env):
         self.action_space = Box(low=-.05,high=.05,shape=(NUM_JOINTS,))
         # The observation space are the torso roll, pitch and the angular velocities and a history of the last 30 joint angles (30*8 = 240 + 6(xyzw v1 av2)  246)
         #Position (x,y,z), Orientation (x,y,z), Linear Velocity (x,y,z), Angular Velocity (wx,wy,wz) and the 8 joint angles*10 history = 92
-        self.observation_space = Box(low=-50, high=50,shape=(12+NUM_JOINTS*self.history_steps_saved,))
+        #self.observation_space = Box(low=-50, high=50,shape=(12+NUM_JOINTS*self.history_steps_saved,))
+
+        #Using quaternion
+        self.observation_space = Box(low=-50, high=50,shape=(13+NUM_JOINTS*self.history_steps_saved,))
+
 
         self.step_counter = 0
         self.bound_angle = np.deg2rad(BOUND_ANGLE)
@@ -84,8 +88,8 @@ class BittleEnv(Env):
         state_robot_pos, state_robot_orien = p.getBasePositionAndOrientation(self.bittle_id)
         state_robot_pos = np.asarray(state_robot_pos).reshape(1,-1)[0]
         #Change Orientation to Euler
-        state_robot_orien = np.asarray(p.getEulerFromQuaternion(state_robot_orien))
-        state_robot_orien = np.asarray(state_robot_orien).reshape(1,-1)[0]
+        #state_robot_orien = np.asarray(p.getEulerFromQuaternion(state_robot_orien))
+        #state_robot_orien = np.asarray(state_robot_orien).reshape(1,-1)[0]
         # Get specific positions
         current_x_position = state_robot_pos[0] # Position in x-direction of torso-link
         current_y_position = state_robot_pos[1]
@@ -101,15 +105,50 @@ class BittleEnv(Env):
         #self.state_robot = self.normalize_obs(self.state_robot)
 
         #works for models 81 and 82
-        if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
+        # if (state_robot_lin_vel[0] > .5) and self.is_upright2() and (current_z_position > .7):
+        #     reward = .1
+        #     if (state_robot_lin_vel[0] > 1.5):
+        #         reward = .2
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+
+
+        #86, pitch .4, roll < .06
+        # if (state_robot_lin_vel[0] > .5) and self.is_upright3() and (current_z_position > .7):
+        #     reward = .1
+        #     if (state_robot_lin_vel[0] > 1.25):
+        #         reward = .2
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+
+        #87, 88
+        # if (state_robot_lin_vel[0] > .5) and self.is_upright3() and (current_z_position > .7):
+        #     reward = .1
+        #     if (state_robot_lin_vel[0] > 1.25):
+        #         reward = .2
+        # else:
+        #     reward = 0
+        #
+        # if self.is_fallen():
+        #     reward = -.1
+
+        #89, 1.4 friction
+        if (state_robot_lin_vel[0] > .5) and self.is_upright3() and (current_z_position > .7):
             reward = .1
-            if (state_robot_lin_vel[0] > 1.5):
+            if (state_robot_lin_vel[0] > .75):
                 reward = .2
         else:
             reward = 0
 
         if self.is_fallen():
             reward = -.1
+
 
         done = False
 
@@ -147,7 +186,7 @@ class BittleEnv(Env):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         #self.plane_id = p.loadURDF("models/terrain.urdf")
         self.plane_id = p.loadURDF("plane.urdf")
-        p.changeDynamics(self.plane_id, -1, lateralFriction = 2.4)
+        p.changeDynamics(self.plane_id, -1, lateralFriction = 1.4)
 
         #Load bittle into environment
         self.start_height = .75 if NUM_JOINTS == 4 else .95
@@ -184,8 +223,8 @@ class BittleEnv(Env):
         state_robot_pos, state_robot_orien = p.getBasePositionAndOrientation(self.bittle_id)
         state_robot_pos = np.asarray(state_robot_pos).reshape(1,-1)[0]
         #Change Orientation to Euler
-        state_robot_orien = np.asarray(p.getEulerFromQuaternion(state_robot_orien))
-        state_robot_orien = np.asarray(state_robot_orien).reshape(1,-1)[0]
+        #state_robot_orien = np.asarray(p.getEulerFromQuaternion(state_robot_orien))
+        #state_robot_orien = np.asarray(state_robot_orien).reshape(1,-1)[0]
 
         #Velocity:  Linear velocity [X, Y, Z] and angular velocity [wx,wy,wz]
         state_robot_lin_vel, state_robot_ang_vel = p.getBaseVelocity(self.bittle_id)
@@ -243,10 +282,10 @@ class BittleEnv(Env):
         return is_upright
 
     def is_upright3(self):
-        '''Return true if pitch and roll are not extreme'''
+        '''Return true if pitch < .4 and roll < .1 are not extreme'''
         position, orientation = p.getBasePositionAndOrientation(self.bittle_id)
         orientation = p.getEulerFromQuaternion(orientation)
-        is_upright = abs(orientation[0]) < .15 and abs(orientation[1]) < .15
+        is_upright = abs(orientation[0]) < .3 and abs(orientation[1]) < .07
         return is_upright
 
     def is_straightforward(self):

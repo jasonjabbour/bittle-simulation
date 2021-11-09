@@ -25,7 +25,7 @@ def loadEnv(model_name, vec_norm=False):
         #  do not update stats at test time
         env.training = False
         # reward normalization is not needed at test time
-        #env.norm_reward = False
+        env.norm_reward = False
 
     #Get path to model
     model_path = os.path.join('Training','Saved_Models',model_name)
@@ -53,7 +53,10 @@ def watch(model, env, plot=False):
 
         x.append(count)
         count+=1
-        score+=reward
+        if type(reward) == np.ndarray:
+            score+=reward[0]
+        else:
+            score+=reward
         y.append(score)
 
         if done and plot:
@@ -68,5 +71,5 @@ def watch(model, env, plot=False):
 
 
 if __name__ == '__main__':
-    model, env = loadEnv('PPO_Model_Bittle81',vec_norm=True)
+    model, env = loadEnv('PPO_Model_Bittle89',vec_norm=True)
     watch(model, env, plot=False)

@@ -1,11 +1,11 @@
 ---------- TO BE DELETED ----------
-PPO_Model_Bittle83
-	episodes: 5,000,000
-	observation space: 12 (1 history steps) (euler orientation no w)
-	normalize obs: False (-50 to 50) 
+PPO_Model_Bittle88
+	episodes: 8,000,000
+	observation space: 13 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
 	action space = -.05 - .05
 	joints: all 8
-	reward function: see code penalize falling
+	reward function:
 	weight: 270
 	friction: 2.4
 	jointAngles += action
@@ -13,8 +13,55 @@ PPO_Model_Bittle83
 	Seed: 6
 	WrappedEnv: Yes
 	Num_Envs = 5
-	Notes: 
+	Notes: Using pitch .3 and roll .07, and quaternions instead of euler.
 
+PPO_Model_Bittle87 (BEST MODEL)
+	episodes: 14,000,000
+	observation space: 13 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50)
+	action space = -.05 - .05
+	joints: all 8
+	reward function:
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: Using pitch .3 and roll .07, and quaternions instead of euler. Best model
+
+PPO_Model_Bittle86
+	episodes: 8,000,000
+	observation space: 13 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: 
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: Using pitch .3 and roll .06, and quaternions instead of euler
+
+PPO_Model_Bittle86
+	episodes: 18,000,000
+	observation space: 12 (1 history steps) (euler orientation no w)
+	normalize obs: False (-50 to 50) 
+	action space = -.05 - .05
+	joints: all 8
+	reward function: 
+	weight: 270
+	friction: 2.4
+	jointAngles += action
+	steps: 1000
+	Seed: 6
+	WrappedEnv: Yes
+	Num_Envs = 5
+	Notes: too much pitch. Using pitch .4 and roll .06, did not find max reward
 
 PPO_Model_Bittle82
 	episodes: 3,000,000 + 3,000,000
