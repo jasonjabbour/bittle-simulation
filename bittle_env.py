@@ -134,11 +134,11 @@ class BittleEnv(Env):
         #         reward = .2
         # else:
         #     reward = 0
-        #
+        
         # if self.is_fallen():
         #     reward = -.1
 
-        #89, 1.4 friction
+        # #89, 1.4 friction
         if (state_robot_lin_vel[0] > .5) and self.is_upright3() and (current_z_position > .7):
             reward = .1
             if (state_robot_lin_vel[0] > .75):
