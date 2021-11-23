@@ -19,7 +19,7 @@ python bittle_watch.py
 python bittle_train.py
 ```
 ### Applying an [Imitation Learning Framework](https://xbpeng.github.io/projects/Robotic_Imitation/index.html) to Train Bittle (In Progress)
-![](Captures/imitation_learning_bittle1.mp4)
+![](Captures/imitation_learning_bittle1.gif)
 
 ### References
 - [Bittle URDF and obj files](https://github.com/AIWintermuteAI/Bittle_URDF)
